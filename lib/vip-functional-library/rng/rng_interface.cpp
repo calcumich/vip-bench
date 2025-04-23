@@ -16,10 +16,10 @@ void initialize_rng(int seed){
     // RNG.discard(100);
 }
 
-uint64_t get_random_pad_64b(){
-    //Not sure if this random number is in the correct range... 
-    uint64_t ret = RNG() % (2^64);
-    return ret; 
+uint64_t get_random_pad_64b() {
+    uint64_t high = static_cast<uint64_t>(RNG()) << 32;
+    uint64_t low  = static_cast<uint64_t>(RNG());
+    return high | low;
 }
 
 uint8_t get_random_pad_8b(){
