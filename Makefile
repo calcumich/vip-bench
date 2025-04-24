@@ -107,10 +107,15 @@ config-tf:
 	ln -sf configs/config.mk.tf config.mk
 	ln -sf configs/config.h.tf config.h
 
-config-seal:
-	@echo "Configuring VIP-Bench for Microsoft SEAL HE library..."
-	ln -sf configs/config.mk.seal config.mk
-	ln -sf configs/config.h.seal config.h
+config-seal-bfv:
+	@echo "Configuring VIP-Bench for Microsoft SEAL-bfv HE library..."
+	ln -sf configs/config.mk.seal-bfv config.mk
+	ln -sf configs/config.h.seal-bfv config.h
+
+config-seal-ckks:
+	@echo "Configuring VIP-Bench for Microsoft SEAL-ckks HE library..."
+	ln -sf configs/config.mk.seal-ckks config.mk
+	ln -sf configs/config.h.seal-ckks config.h
 
 run-tests:
 	@for _BMARK in $(BMARKS) ; do \
