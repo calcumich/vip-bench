@@ -72,10 +72,23 @@ class Stopwatch
           timeTaken=duration.count();
         else
           timeTaken=duration_millis.count();
-        if(!tableFormat)
-          std::cerr<<"[VIP] Time taken:"<<timeTaken/numIter<<(precision?" microseconds, ":" milliseconds, ")<<cycles<<" processor cycles";
-        else
-          std::cerr<<"[VIP] Time taken:\t"<</*timeTaken/numIter*/duration_millis.count()<<"\t"<<(timeTaken/numIter)/nSlots<<"\t"<<cycles;
+        if (!tableFormat) {
+          if (precision) {
+            std::cerr << "[VIP] Time taken: " << timeTaken << " µs, ";
+          } else {
+            std::cerr << "[VIP] Time taken: " << timeTaken << " ms, ";
+          }
+          std::cerr << cycles << " processor cycles";
+        }
+        else {
+          double total_ms = duration_millis.count();
+          double per_slot = (timeTaken / static_cast<double>(numIter)) / nSlots;
+      
+          std::cerr << "[VIP] Time taken:\t"
+                    << total_ms  << " ms\t"
+                    << per_slot  << (precision ? " µs/iter/slot\t" : " ms/iter/slot\t")
+                    << cycles    << " cycles";
+          }
         // Print Linux Perf Event Utility to Measure Instruction Count
         long long count;
         if (fd != -1) {
